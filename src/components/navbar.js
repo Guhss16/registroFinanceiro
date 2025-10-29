@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export default function Navbar(){
     return(
         <div className="flex flex-col gap-4">
@@ -6,9 +8,10 @@ export default function Navbar(){
             <div className="pl-[10px]">
                 <nav className="text-white">
                     <ul className="space-y-1">
-                        <li className="cursor-pointer">→ GASTOS</li>
-                        <li className="cursor-pointer">→ ENTRADAS</li>
-                        <li className="cursor-pointer">→ CATEGORIAS</li>
+                        <li><Link to="/">→ DASHBOARD</Link></li>
+                        <li><Link to="/gastos">→ GASTOS</Link></li>
+                        <li><Link to="/entradas">→ ENTRADAS</Link></li>
+                        <li><Link to="/categorias">→ CATEGORIAS</Link></li>
                     </ul>
                 </nav>
             </div>

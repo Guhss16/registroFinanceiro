@@ -10,6 +10,8 @@ export default function Home() {
   const [showEditPopup, setShowEditPopup] = useState(false)
   const [gastoEditando, setGastoEditando] = useState(null)
 
+  const somaGastos = gastos.reduce((total, gasto) => total + parseFloat(gasto.valor), 0).toFixed(2);
+
   const handleAbrirEdicao = (id) => {
     const gasto = gastos.find((g) => g.id === id)
     setGastoEditando(gasto)
@@ -84,6 +86,7 @@ export default function Home() {
 
       <div className="content flex-1 p-5">
         <Header />
+        <h1 className="text-xl font-bold mb-4">Total gasto: R$ {somaGastos}</h1>
 
         <FormGasto onAdicionar={handleAdicionarGasto} />
         <h1>Gastos Simples</h1>
