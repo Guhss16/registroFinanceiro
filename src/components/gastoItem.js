@@ -1,4 +1,4 @@
-export default function gastoItem({gasto, onEditar, onRemover, index}){
+export default function gastoItem({gasto, onEditar, onRemover}){
     return(
         <div className="bg-white rounded-md p-4">
             <a className="itemLabel">Nome: {gasto.nome} | </a>
@@ -9,8 +9,8 @@ export default function gastoItem({gasto, onEditar, onRemover, index}){
                 <a className="itemLabel">Parcelas: {gasto.parcelas} | </a>
             )}        
             <div className="flex flex-row gap-4 pt-2">
-                <button className="buttonItem" onClick={() => onEditar(index)}>Editar</button>
-                <button className="buttonItem" onClick={() => onRemover(index)}>Remover</button>
+                <button className="buttonItem" onClick={() => onEditar(gasto.id)}>Editar</button>
+                <button className="buttonItem" onClick={() => onRemover(gasto.id)}>Remover</button>
             </div>
         </div>
     )

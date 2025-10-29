@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Banco de dados SQLite
+
 const db = new sqlite3.Database('./database.sqlite');
 
 // Cria tabela se não existir
@@ -48,6 +48,21 @@ app.delete('/gastos/:id', (req, res) => {
     if (err) return res.status(500).json(err);
     res.json({ success: true });
   });
+});
+
+app.put('/gastos/:id', (req, res) => {
+  const { tipo, nome, data, categoria, valor, parcelas } = req.body;
+  const { id } = req.params;
+
+  db.run(
+    `UPDATE gastos SET tipo = ?, nome = ?, data = ?, categoria = ?, valor = ?, parcelas = ? WHERE id = ?`,
+    [tipo, nome, data, categoria, valor, parcelas, id],
+    function (err) {
+      if (err) return res.status(500).json(err);
+
+      res.json({ id: parseInt(id), tipo, nome, data, categoria, valor, parcelas });
+    }
+  );
 });
 
 app.listen(5000, () => console.log('Servidor rodando na porta 5000 🚀'));
