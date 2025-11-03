@@ -85,35 +85,39 @@ export default function Home() {
       </div>
 
       <div className="content flex-1 p-5">
-        <Header />
-        <h1 className="text-xl font-bold mb-4">Total gasto: R$ {somaGastos}</h1>
+        <h1 className="text-xl font-bold mb-4">Total Gasto: R$ {somaGastos}</h1>
 
         <FormGasto onAdicionar={handleAdicionarGasto} />
         <h1>Gastos Simples</h1>
-        {gastos
-          .filter((g) => g.tipo === "Simples")
-          .map((gasto) => (
-            <GastoItem
-              key={gasto.id}
-              gasto={gasto}
-              onRemover={() => handleRemoverGasto(gasto.id)}
-              onEditar={handleAbrirEdicao}
-            />
-          ))}
+        <div className="bg-white min-h-24 rounded-md">
+          {gastos
+            .filter((g) => g.tipo === "Simples")
+            .map((gasto) => (
+              <GastoItem
+                key={gasto.id}
+                gasto={gasto}
+                onRemover={() => handleRemoverGasto(gasto.id)}
+                onEditar={handleAbrirEdicao}
+              />
+            ))}
+          </div>
 
         <h1>Gastos Parcelados</h1>
-        {gastos
-          .filter((g) => g.tipo === "Parcelado")
-          .map((gasto) => (
-            <GastoItem
-              key={gasto.id}
-              gasto={gasto}
-              onRemover={() => handleRemoverGasto(gasto.id)}
-              onEditar={handleAbrirEdicao}
-            />
-          ))}
+        <div className="bg-white min-h-24 rounded-md">
+          {gastos
+            .filter((g) => g.tipo === "Parcelado")
+            .map((gasto) => (
+              <GastoItem
+                key={gasto.id}
+                gasto={gasto}
+                onRemover={() => handleRemoverGasto(gasto.id)}
+                onEditar={handleAbrirEdicao}
+              />
+            ))}
+          </div>
 
         <h1>Gastos Fixos</h1>
+        <div className="bg-white min-h-24 rounded-md">
         {gastos
           .filter((g) => g.tipo === "Fixos")
           .map((gasto) => (
@@ -124,7 +128,7 @@ export default function Home() {
               onEditar={handleAbrirEdicao}
             />
           ))}
-
+        </div>
         {showEditPopup && (
           <GastoEditPopUp
             gasto={gastoEditando}

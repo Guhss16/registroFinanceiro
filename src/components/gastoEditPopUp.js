@@ -32,7 +32,8 @@ export default function GastoEditPopUp({ gasto, onSalvar, onClose }) {
       <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
         <option>Simples</option>
         <option>Parcelado</option>
-        <option>Fixos</option>
+        <option>Fixo</option>
+        
       </select>
 
       <label>Nome:</label>
