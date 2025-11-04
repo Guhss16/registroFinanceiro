@@ -4,7 +4,7 @@ import FormEntrada from "../components/formEntrada"
 import EntradaEditPopUp from "../components/entradaEditPopUp";
 import { useEffect, useState } from "react"
 
-export default function Home() {
+export default function Entradas() {
   const [entradas, setEntradas] = useState([])
   const [showEditPopup, setShowEditPopup] = useState(false)
   const [entradaEditando, setEntradaEditando] = useState(null)

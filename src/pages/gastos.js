@@ -1,11 +1,10 @@
 import Navbar from "../components/navbar"
-import Header from "../components/header"
 import GastoItem from "../components/gastoItem"
 import FormGasto from "../components/formGasto"
 import GastoEditPopUp from "../components/gastoEditPopUp";
 import { useEffect, useState } from "react"
 
-export default function Home() {
+export default function Gastos() {
   const [gastos, setGastos] = useState([])
   const [showEditPopup, setShowEditPopup] = useState(false)
   const [gastoEditando, setGastoEditando] = useState(null)

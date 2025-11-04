@@ -95,7 +95,7 @@ app.post('/entradas', (req, res) => {
   [tipo, nome, data, banco, valor],
   function (err) {
     if (err) {
-      console.error("Erro ao inserir entrada:", err); // 👈 ajuda no debug
+      console.error("Erro ao inserir entrada:", err);
       return res.status(500).json(err);
     }
     res.json({ id: this.lastID, tipo, nome, data, banco, valor });
@@ -125,6 +125,62 @@ app.put('/entradas/:id', (req, res) => {
   );
 });
 
+//CATEGORIAS
+
+// Criação da tabela de categorias
+db.run(`
+  CREATE TABLE IF NOT EXISTS categorias (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT
+  )
+`);
+
+// Inserção de categorias padrão (se ainda não existirem)
+const categoriasPadrao = ['Alimentação', 'Transporte', 'Saúde', 'Educação', 'Lazer'];
+
+categoriasPadrao.forEach(nome => {
+  db.get(`SELECT COUNT(*) as count FROM categorias WHERE nome = ?`, [nome], (err, row) => {
+    if (err) return console.error("Erro ao verificar categoria:", err);
+    if (row.count === 0) {
+      db.run(`INSERT INTO categorias (nome) VALUES (?)`, [nome]);
+    }
+  });
+});
+
+// Listar todas as categorias
+app.get('/categorias', (req, res) => {
+  db.all("SELECT * FROM categorias", [], (err, rows) => {
+    if (err) return res.status(500).json(err);
+    res.json(rows);
+  });
+});
+
+// Criar nova categoria
+app.post('/categorias', (req, res) => {
+  const { nome } = req.body;
+  db.run(`INSERT INTO categorias (nome) VALUES (?)`, [nome], function (err) {
+    if (err) return res.status(500).json(err);
+    res.json({ id: this.lastID, nome });
+  });
+});
+
+// Editar categoria existente
+app.put('/categorias/:id', (req, res) => {
+  const { nome } = req.body;
+  const { id } = req.params;
+  db.run(`UPDATE categorias SET nome = ? WHERE id = ?`, [nome, id], function (err) {
+    if (err) return res.status(500).json(err);
+    res.json({ id: parseInt(id), nome });
+  });
+});
+
+// Excluir categoria
+app.delete('/categorias/:id', (req, res) => {
+  db.run(`DELETE FROM categorias WHERE id = ?`, [req.params.id], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json({ success: true });
+  });
+});
 
 
 app.listen(5000, () => console.log('Servidor rodando na porta 5000 🚀'));
